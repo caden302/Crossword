@@ -73,7 +73,7 @@ public class CrosswordMagicModel extends AbstractModel {
     public Character[][] checkWordIsCorrect(int boxNum, String guess){
         WordDirection direction = puzzle.checkGuess(boxNum, guess.toUpperCase());
         Log.d("checkIfCOrrect", direction.toString());
-        if (direction != null) {
+        if (!direction.toString().isBlank()) {
             puzzle.addWordToGuessed(Integer.toString(boxNum) + direction);
             Log.d("checkIfCOrrect", puzzle.getWord(Integer.toString(boxNum) + direction).toString());
             return puzzle.getLetters();

@@ -1,7 +1,5 @@
 package edu.jsu.mcis.cs408.crosswordmagic.controller;
 
-import android.util.Log;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.lang.reflect.Method;
