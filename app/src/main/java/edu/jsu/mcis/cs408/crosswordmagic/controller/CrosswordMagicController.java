@@ -17,6 +17,7 @@ public class CrosswordMagicController extends AbstractController {
     public static final String CLUES_ACROSS = "acrossClues";
     public static final String CLUES_DOWN = "downClues";
     public static final String ANSWER_CORRECT = "solved";
+    public static final String PUZZLE_LIST_PROPERTY = "puzzleList";
 
     private CrosswordMagicModel model;
     private List<AbstractView> views;
@@ -66,5 +67,10 @@ public class CrosswordMagicController extends AbstractController {
     public void makeGuess(int boxIndex, String guess) {
         Character[][] updatedWord = model.checkWordIsCorrect(boxIndex, guess);
         firePropertyChange(ANSWER_CORRECT, null, updatedWord);
+    }
+
+    public void getPuzzleList(){
+
+
     }
 }
