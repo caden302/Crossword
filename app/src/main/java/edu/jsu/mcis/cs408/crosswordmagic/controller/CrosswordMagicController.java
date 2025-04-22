@@ -1,8 +1,10 @@
 package edu.jsu.mcis.cs408.crosswordmagic.controller;
 
 import android.content.Context;
+import android.util.Log;
 
 import edu.jsu.mcis.cs408.crosswordmagic.model.CrosswordMagicModel;
+import edu.jsu.mcis.cs408.crosswordmagic.model.PuzzleListItem;
 import edu.jsu.mcis.cs408.crosswordmagic.view.AbstractView;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ public class CrosswordMagicController extends AbstractController {
     public static final String CLUES_DOWN = "downClues";
     public static final String ANSWER_CORRECT = "solved";
     public static final String PUZZLE_LIST_PROPERTY = "puzzleList";
+
 
     private CrosswordMagicModel model;
     private List<AbstractView> views;
@@ -70,7 +73,8 @@ public class CrosswordMagicController extends AbstractController {
     }
 
     public void getPuzzleList(){
-
-
+        PuzzleListItem[] puzzleArray = model.getPuzzleList();
+        Log.d("PuzzleList listing", puzzleArray[0].toString());
+        firePropertyChange(PUZZLE_LIST_PROPERTY, null, puzzleArray);
     }
 }

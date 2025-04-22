@@ -20,6 +20,7 @@ import java.util.List;
 
 import edu.jsu.mcis.cs408.crosswordmagic.R;
 import edu.jsu.mcis.cs408.crosswordmagic.model.Puzzle;
+import edu.jsu.mcis.cs408.crosswordmagic.model.PuzzleListItem;
 import edu.jsu.mcis.cs408.crosswordmagic.model.Word;
 import edu.jsu.mcis.cs408.crosswordmagic.model.WordDirection;
 
@@ -116,8 +117,6 @@ public class PuzzleDAO {
                     params.put("height",height);
                     params.put("width",width);
 
-                    Log.d("PuzzleDAO", name);
-
                 }
                 while ( cursor.moveToNext() );
 
@@ -135,7 +134,6 @@ public class PuzzleDAO {
 
             ArrayList<Word> words = wordDao.list(db, puzzleid);
 
-            Log.d("PuzzleDao", Boolean.toString(words.isEmpty()));
             if ( !words.isEmpty() )
                 puzzle.addWordsToPuzzle(words);
 
@@ -174,4 +172,50 @@ public class PuzzleDAO {
 
     }
 
+    public PuzzleListItem[] list(){
+        SQLiteDatabase db = daoFactory.getWritableDatabase();
+        ArrayList<PuzzleListItem> puzzles = list(db);
+        db.close();
+        return puzzles.toArray(new PuzzleListItem[]{});
+    }
+
+    public ArrayList<PuzzleListItem> list(SQLiteDatabase db){
+        ArrayList<PuzzleListItem> puzzles = new ArrayList<>();
+        String query = daoFactory.getProperty("sql_get_num_puzzles");
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            cursor.moveToFirst();
+
+            do {
+
+                HashMap<String, String> params = new HashMap<>();
+
+                /* get data for the next word in the puzzle */
+
+                query = daoFactory.getProperty("sql_get_num_puzzles");
+                cursor = db.rawQuery(query, null);
+
+                if (cursor.moveToFirst()) {
+
+                    do {
+
+                        int id = cursor.getInt(0);
+                        String name = cursor.getString(1);
+                        puzzles.add(new PuzzleListItem(id, name));
+                    }
+                    while ( cursor.moveToNext() );
+
+                    cursor.close();
+
+                }
+
+            }
+            while ( cursor.moveToNext() );
+
+            cursor.close();
+
+        }
+        return puzzles;
+
+    }
 }

@@ -3,6 +3,8 @@ package edu.jsu.mcis.cs408.crosswordmagic.model;
 import android.content.Context;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 import edu.jsu.mcis.cs408.crosswordmagic.controller.CrosswordMagicController;
 import edu.jsu.mcis.cs408.crosswordmagic.model.dao.*;
 
@@ -13,6 +15,8 @@ public class CrosswordMagicModel extends AbstractModel {
 
     private Puzzle puzzle;
 
+    private PuzzleDAO puzzleDAO;
+
     private Character[][] letters;
     private Integer[][] numbers;
 
@@ -22,7 +26,18 @@ public class CrosswordMagicModel extends AbstractModel {
 
     public CrosswordMagicModel(Context context){
         DAOFactory daoFactory = new DAOFactory(context);
-        PuzzleDAO puzzleDAO = daoFactory.getPuzzleDAO();
+        this.puzzleDAO = daoFactory.getPuzzleDAO();
+
+        this.puzzle = puzzleDAO.find(DEFAULT_PUZZLE_ID);
+        if (puzzle != null) {
+            setGridLetters(puzzle.getLetters());
+            setGridNumbers(puzzle.getNumbers());
+            setGridDimensions(puzzle.getHeight(), puzzle.getWidth());
+        }
+    }
+    public CrosswordMagicModel(Context context, int puzzleid){
+        DAOFactory daoFactory = new DAOFactory(context);
+        this.puzzleDAO = daoFactory.getPuzzleDAO();
 
         this.puzzle = puzzleDAO.find(DEFAULT_PUZZLE_ID);
         if (puzzle != null) {
@@ -79,5 +94,18 @@ public class CrosswordMagicModel extends AbstractModel {
             return puzzle.getLetters();
         }
         return null;
+    }
+
+    public PuzzleListItem[] getPuzzleList(){
+        return puzzleDAO.list();
+    }
+
+    public ArrayList<String> puzzleNames(){
+        PuzzleListItem[] puzzles = puzzleDAO.list();
+        ArrayList<String> names = new ArrayList<>();
+        for(PuzzleListItem puzzle : puzzles){
+            names.add(puzzle.toString());
+        }
+        return names;
     }
 }

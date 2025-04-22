@@ -81,8 +81,6 @@ public class WordDAO {
         String query = daoFactory.getProperty("sql_get_words");
         Cursor cursor = db.rawQuery(query, new String[]{ String.valueOf(puzzleid) });
 
-        Log.d("Word List", Integer.toString(cursor.getCount()));
-
         if (cursor.moveToFirst()) {
             cursor.moveToFirst();
 
@@ -102,7 +100,6 @@ public class WordDAO {
                         int wordid = cursor.getInt(0);
 
                         result.add(find(db, wordid));
-                        Log.d("WordList", Integer.toString(result.size()));
                     }
                     while ( cursor.moveToNext() );
 
