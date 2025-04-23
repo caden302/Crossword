@@ -30,6 +30,10 @@ public class WelcomeActivity extends AppCompatActivity implements AbstractView, 
 
         super.onCreate(savedInstanceState);
         binding = ActivityWelcomeBinding.inflate(getLayoutInflater());
+        binding.buttonGetNew.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MenuActivity.class);
+            startActivity(intent);
+        });
         View view = binding.getRoot();
         setContentView(view);
 

@@ -108,4 +108,5 @@ public class CrosswordMagicModel extends AbstractModel {
         }
         return names;
     }
+
 }

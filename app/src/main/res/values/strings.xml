@@ -6,5 +6,6 @@
     <string name="clue_header_across">Across></string>
     <string name="clue_header_down">Down></string>
     <string name="crossword_magic_cover">Cover</string>
-    <string name="button_play">play</string>
+    <string name="button_play">Play</string>
+    <string name="get_new_puzzles">Get New Puzzles</string>
 </resources>

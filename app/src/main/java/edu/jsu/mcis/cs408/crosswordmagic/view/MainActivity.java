@@ -1,14 +1,20 @@
 package edu.jsu.mcis.cs408.crosswordmagic.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
+
 import edu.jsu.mcis.cs408.crosswordmagic.R;
 import edu.jsu.mcis.cs408.crosswordmagic.controller.CrosswordMagicController;
+import edu.jsu.mcis.cs408.crosswordmagic.databinding.ActivityMainBinding;
 import edu.jsu.mcis.cs408.crosswordmagic.model.CrosswordMagicModel;
 
 public class MainActivity extends AppCompatActivity {
     private CrosswordMagicController controller;
     private CrosswordMagicModel model;
+
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
         if (extras != null) {
             puzzleid = extras.getInt("puzzleid");
         }
+
+        Intent intent = getIntent();
+        puzzleid = intent.getIntExtra("puzzleid", 1);
 
         CrosswordMagicModel model = new CrosswordMagicModel(this, puzzleid);
 
