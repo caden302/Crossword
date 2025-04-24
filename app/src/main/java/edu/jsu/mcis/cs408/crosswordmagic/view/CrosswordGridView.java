@@ -307,8 +307,6 @@ public class CrosswordGridView extends View implements AbstractView {
                             }
                         }
                     });
-                    builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
-
                     builder.show();
                 }
 

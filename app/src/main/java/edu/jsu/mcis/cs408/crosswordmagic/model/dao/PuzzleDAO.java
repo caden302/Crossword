@@ -98,8 +98,6 @@ public class PuzzleDAO {
 
             HashMap<String, String> params = new HashMap<>();
 
-            /* get data for new puzzle */
-
             query = daoFactory.getProperty("sql_get_puzzle");
             cursor = db.rawQuery(query, new String[]{ String.valueOf(puzzleid) });
 

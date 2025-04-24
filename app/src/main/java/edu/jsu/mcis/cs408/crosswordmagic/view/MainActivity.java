@@ -27,13 +27,7 @@ public class MainActivity extends AppCompatActivity {
         if (extras != null) {
             puzzleid = extras.getInt("puzzleid");
         }
-
-        Intent intent = getIntent();
-        puzzleid = intent.getIntExtra("puzzleid", 1);
-
-        CrosswordMagicModel model = new CrosswordMagicModel(this, puzzleid);
-
-        controller = new CrosswordMagicController(this);
+        controller = new CrosswordMagicController(this, puzzleid);
     }
 
     public CrosswordMagicController getController() {

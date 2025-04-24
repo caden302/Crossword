@@ -3,6 +3,7 @@ package edu.jsu.mcis.cs408.crosswordmagic.model.dao;
 import android.util.Log;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -37,6 +38,20 @@ public class WebServiceDAO {
         catch (Exception e) { e.printStackTrace(); }
         return result;
     }
+    public JSONObject list(int id) {
+        requestUrl = ROOT_URL + "?id=" + id;
+        JSONObject result = null;
+        try {
+            pool = Executors.newSingleThreadExecutor();
+            Future<String> pending = pool.submit(new CallableHTTPRequest());
+            String response = pending.get();
+            pool.shutdown();
+            result = new JSONObject(response);
+        }
+        catch (Exception e) { e.printStackTrace(); }
+        Log.d("Testing", result.toString());
+        return result;
+    }
 
     public class CallableHTTPRequest implements Callable<String> {
 
@@ -63,7 +78,6 @@ public class WebServiceDAO {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     while ((line = reader.readLine()) != null) {
                         r.append(line);
-                        Log.d("WebDAO", r.toString());
                     }
                 }
 

@@ -28,7 +28,7 @@ public class DAOFactory extends SQLiteOpenHelper {
     private final DAOProperties properties;
 
     private static final String DATABASE_NAME = "cwmagic.db";
-    private static final int DATABASE_VERSION = 9;
+    private static final int DATABASE_VERSION = 17;
 
     private static final int CSV_HEADER_FIELDS = 4;
     private static final int CSV_DATA_FIELDS = 6;

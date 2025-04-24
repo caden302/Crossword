@@ -20,6 +20,7 @@ public class CrosswordMagicController extends AbstractController {
     public static final String CLUES_DOWN = "downClues";
     public static final String ANSWER_CORRECT = "solved";
     public static final String PUZZLE_LIST_PROPERTY = "puzzleList";
+    public static final String PUZZLE_DOWNLOADED_PROPERTY = "puzzleDownloaded";
 
 
     private CrosswordMagicModel model;
@@ -27,6 +28,11 @@ public class CrosswordMagicController extends AbstractController {
 
     public CrosswordMagicController(Context context) {
         this.model = new CrosswordMagicModel(context);
+        this.views = new ArrayList<>();
+    }
+
+    public CrosswordMagicController(Context context, int puzzleid) {
+        this.model = new CrosswordMagicModel(context, puzzleid);
         this.views = new ArrayList<>();
     }
 
@@ -76,5 +82,11 @@ public class CrosswordMagicController extends AbstractController {
         PuzzleListItem[] puzzleArray = model.getPuzzleList();
         Log.d("PuzzleList listing", puzzleArray[0].toString());
         firePropertyChange(PUZZLE_LIST_PROPERTY, null, puzzleArray);
+    }
+
+    public int callDownload(int puzzleid){
+        int databaseID = model.downloadPuzzles(puzzleid);
+        firePropertyChange(PUZZLE_DOWNLOADED_PROPERTY, null, databaseID);
+        return databaseID;
     }
 }

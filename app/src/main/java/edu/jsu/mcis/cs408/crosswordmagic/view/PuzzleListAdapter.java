@@ -2,6 +2,7 @@ package edu.jsu.mcis.cs408.crosswordmagic.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ public class PuzzleListAdapter extends RecyclerView.Adapter<PuzzleListAdapter.Vi
 
     private final List<PuzzleListItem> puzzles;
     private final Context context;
+
+    private int puzzleid;
 
     public PuzzleListAdapter(Context context, List<PuzzleListItem> puzzles) {
         this.context = context;
@@ -31,12 +34,15 @@ public class PuzzleListAdapter extends RecyclerView.Adapter<PuzzleListAdapter.Vi
     public void onBindViewHolder(PuzzleListAdapter.ViewHolder holder, int position) {
         PuzzleListItem item = puzzles.get(position);
         holder.textView.setText(item.toString());
-
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, MainActivity.class);
-            intent.putExtra("puzzleid", item.getId());
-            context.startActivity(intent);
+        Log.d("puzzleListAdapter", item.getId().toString());
+        holder.textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setPuzzleID(item.getId());
+                Log.d("TextViewClick", "Selected Puzzle ID: " + puzzleid);
+            }
         });
+
     }
 
     @Override
@@ -50,5 +56,13 @@ public class PuzzleListAdapter extends RecyclerView.Adapter<PuzzleListAdapter.Vi
             super(view);
             textView = view.findViewById(R.id.textViewPuzzleName);
         }
+    }
+
+    public int getPuzzleIDFromTextview(){
+        return puzzleid;
+    }
+    public void setPuzzleID(int puzzleid){
+        this.puzzleid = puzzleid;
+        Log.d("test", Integer.toString(puzzleid));
     }
 }

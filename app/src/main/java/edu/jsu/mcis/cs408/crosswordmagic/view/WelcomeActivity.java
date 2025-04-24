@@ -40,18 +40,12 @@ public class WelcomeActivity extends AppCompatActivity implements AbstractView, 
         binding.button.setOnClickListener(this);
         binding.spinner.setOnItemSelectedListener(this);
 
-        /* Create Controller and Model */
-
         controller = new CrosswordMagicController(view.getContext());
 
         CrosswordMagicModel model = new CrosswordMagicModel(this);
 
-        /* Register View(s) and Model(s) with Controller */
-
         controller.addModel(model);
         controller.addView(this);
-
-        /* Request Puzzle List */
 
         controller.getPuzzleList();
 
